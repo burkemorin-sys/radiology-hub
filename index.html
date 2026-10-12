@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Radiology Hub</title>
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Radiology Hub">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<style>
+:root{--bg:#07080a;--panel:#14161a;--panel2:#1d2026;--line:#3a3f47;--silver:#c9ced6;--hi:#f2f4f7;--mute:#9aa1ab;
+--metal:linear-gradient(180deg,#f4f6f8 0%,#c4c9d1 45%,#8d939c 100%)}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--hi);
+padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:10;background:rgba(7,8,10,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:20px;padding:12px 20px}
+h1{margin:0;font-size:24px;letter-spacing:.5px;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.tabs{display:flex;gap:8px}
+.tab{min-height:52px;min-width:120px;padding:0 20px;border:1px solid var(--line);border-radius:12px;background:var(--panel);
+color:var(--silver);font-size:17px;font-weight:600;cursor:pointer}
+.tab[aria-selected=true]{background:var(--metal);color:#000;border-color:#e6e9ee}
+.tab:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:2px}
+main{max-width:1200px;margin:auto;padding:20px}
+#q,.card input{width:100%;min-height:56px;padding:0 18px;font-size:18px;border-radius:14px;border:1px solid var(--line);
+background:var(--panel);color:var(--hi);margin:0 0 20px}
+#q::placeholder,.card input::placeholder{color:var(--mute)}
+.panel{display:none}.panel.on{display:block}
+h2.sec{font-size:14px;text-transform:uppercase;letter-spacing:2px;color:var(--mute);margin:8px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.grid>a,.tile>a:first-child{display:flex;flex-direction:column;justify-content:center;min-height:110px;padding:20px;
+background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-top-color:#5b616b;
+border-radius:16px;color:var(--hi);text-decoration:none;transition:border-color .15s,transform .15s}
+.grid>a:hover,.tile>a:first-child:hover{border-color:var(--silver);transform:translateY(-2px)}
+.grid a b{font-size:21px;color:var(--hi)}.grid a p{margin:6px 0 0;color:var(--mute);font-size:15px}
+.tile{display:flex;flex-direction:column}
+a.src{display:flex;align-items:center;min-height:44px;padding:4px 6px;font-size:13px;color:var(--silver);text-decoration:underline;text-underline-offset:3px}
+a.src:hover{color:#fff}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h2{margin:0 0 12px;font-size:20px}
+.card table{width:100%;border-collapse:collapse;font-size:15px}
+.card td{padding:10px 6px!important;border-bottom:1px solid var(--line)}
+.card p{color:var(--silver)}
+#eR{color:#fff}
+@media (max-width:760px){
+ header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#07080a}
+ .bar{justify-content:center}
+ .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;gap:0;background:#000;border-top:1px solid var(--line);
+  padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+ .tab{flex:1;min-width:0;min-height:60px;border-radius:10px;border:0;background:transparent;font-size:15px}
+ .tab[aria-selected=true]{background:var(--metal);color:#000}
+ main{padding:16px} .grid,.cards{grid-template-columns:1fr}
+}
+@media (min-width:761px){body{padding-bottom:20px}}
+</style></head><body>
+<header><div class="bar"><h1>Radiology Hub</h1>
+<nav class="tabs" role="tablist">
+<button class="tab" role="tab" aria-selected="true" data-p="res">Resources</button>
+<button class="tab" role="tab" aria-selected="false" data-p="charts">Charts</button>
+<button class="tab" role="tab" aria-selected="false" data-p="calc">Calculators</button>
+</nav></div></header>
+<main>
+<input id="q" placeholder="Search all three (press Enter)…" onkeydown="if(event.key==='Enter'){const v=encodeURIComponent(this.value);open('https://radiopaedia.org/search?q='+v);open('https://my.statdx.com/search?q='+v);open('https://www.google.com/search?q=site:radiologyassistant.nl+'+v)}">
+<section class="panel on" id="res"><h2 class="sec">Resources</h2><div class="grid">
+<a href="https://pubs.rsna.org/journal/radiographics" target="_blank"><b>RadioGraphics</b><p>RSNA education journal</p></a>
+<a href="https://my.statdx.com" target="_blank"><b>STATdx</b><p>Differentials and diagnoses</p></a>
+<a href="https://radiopaedia.org" target="_blank"><b>Radiopaedia</b><p>Articles and cases</p></a>
+<a href="https://radiologyassistant.nl" target="_blank"><b>Radiology Assistant</b><p>Teaching reviews</p></a>
+</div></section>
+<section class="panel" id="charts"><h2 class="sec">Reporting charts &amp; guidelines</h2><div class="grid">
+<div class="tile"><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/LI-RADS/LI-RADS-CT-MRI-2018-Core.pdf" target="_blank"><b>LI-RADS CT/MRI v2018</b><p>ACR core chart (PDF)</p></a><a class="src" href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS" target="_blank">Source: ACR LI-RADS</a></div>
+<div class="tile"><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/Lung-RADS/Lung-RADS-2022.pdf" target="_blank"><b>Lung-RADS v2022</b><p>ACR lung nodule categories (PDF)</p></a><a class="src" href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/Lung-RADS" target="_blank">Source: ACR Lung-RADS page</a></div>
+<div class="tile"><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-2019.pdf" target="_blank"><b>PI-RADS v2.1</b><p>ACR/ESUR prostate MRI full document, 2019 (PDF)</p></a><a class="src" href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/PI-RADS" target="_blank">Source: ACR PI-RADS page</a></div>
+<div class="tile"><a href="https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/TI-RADS/TI-RADS-Assessment-Categories-Alternative-chart.pdf" target="_blank"><b>ACR TI-RADS (2017)</b><p>Thyroid nodule points & FNA chart (PDF)</p></a><a class="src" href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS" target="_blank">Source: ACR TI-RADS page</a></div>
+<div class="tile"><a href="https://doi.org/10.1148/radiol.2017161659" target="_blank"><b>Fleischner 2017</b><p>Incidental pulmonary nodule guidelines – Radiology (Table 1)</p></a><a class="src" href="https://doi.org/10.1148/radiol.2017161659" target="_blank">Source: MacMahon et al., Radiology 2017;284:228</a></div>
+<div class="tile"><a href="https://radiologyassistant.nl/head-neck/cervical-node-mapping/cervical-node-map" target="_blank"><b>Cervical Node Levels</b><p>Radiology Assistant illustrated neck node map (levels I–X)</p></a><a class="src" href="https://doi.org/10.1016/j.radonc.2013.10.010" target="_blank">Source: Grégoire et al., Radiother Oncol 2014 (consensus)</a><a class="src" href="https://doi.org/10.1001/archotol.125.4.388" target="_blank">Source: Som et al., Arch Otolaryngol HNS 1999 (imaging classification)</a></div>
+</div><h2 class="sec" style="margin-top:28px">Quick reference</h2><div class="cards">
+<section class="card">
+<h2 style="margin-top:0">Coronary Calcium Score (CAC-DRS)</h2>
+<table style="width:100%;border-collapse:collapse;font-size:14px">
+<tr style="opacity:.7"><td style="padding:6px">Category</td><td>Agatston</td><td>Plaque burden</td></tr>
+<tr><td style="padding:6px;font-weight:bold">CAC-DRS 0</td><td>0</td><td>No calcified plaque, very low risk</td></tr><tr><td style="padding:6px;font-weight:bold">CAC-DRS 1</td><td>1&ndash;99</td><td>Mild</td></tr><tr><td style="padding:6px;font-weight:bold">CAC-DRS 2</td><td>100&ndash;299</td><td>Moderate</td></tr><tr><td style="padding:6px;font-weight:bold">CAC-DRS 3</td><td>&ge;300</td><td>Severe</td></tr>
+</table>
+<p style="font-size:12px;opacity:.75">Add the number of involved vessels (e.g., CAC-DRS A2/N3). Also consider the patient's percentile for age, sex, and race (MESA).</p>
+<a class="src" href="https://doi.org/10.1016/j.jcct.2018.03.008" target="_blank">Source: Hecht et al., SCCT CAC-DRS, J Cardiovasc Comput Tomogr 2018</a>
+</section>
+<section class="card">
+<h2 style="margin-top:0">Breast Density (ACR BI-RADS)</h2>
+<table style="width:100%;border-collapse:collapse;font-size:14px">
+<tr><td style="padding:6px;font-weight:bold">A</td><td>Almost entirely fatty</td></tr>
+<tr><td style="padding:6px;font-weight:bold">B</td><td>Scattered areas of fibroglandular density</td></tr>
+<tr><td style="padding:6px;font-weight:bold">C</td><td>Heterogeneously dense, which may obscure small masses</td></tr>
+<tr><td style="padding:6px;font-weight:bold">D</td><td>Extremely dense, which lowers the sensitivity of mammography</td></tr>
+</table>
+<p style="font-size:12px;opacity:.75">C and D count as "dense breasts" for FDA notification (effective Sept 2024).</p>
+<a class="src" href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS" target="_blank">Source: ACR BI-RADS Atlas</a>
+</section>
+<section class="card">
+<h2>Liver Injury Scale (AAST 2018)</h2>
+<table><tr style="color:var(--mute)"><td>Grade</td><td>Imaging criteria (CT)</td></tr><tr><td style="font-weight:bold">I</td><td>Subcapsular hematoma &lt;10% surface area; parenchymal laceration &lt;1 cm depth</td></tr><tr><td style="font-weight:bold">II</td><td>Subcapsular hematoma 10–50% surface area; intraparenchymal hematoma &lt;10 cm diameter; laceration 1–3 cm depth and ≤10 cm length</td></tr><tr><td style="font-weight:bold">III</td><td>Subcapsular hematoma &gt;50% surface area; ruptured subcapsular or parenchymal hematoma; intraparenchymal hematoma &gt;10 cm; laceration &gt;3 cm depth; any injury with liver vascular injury or active bleeding contained within the liver parenchyma</td></tr><tr><td style="font-weight:bold">IV</td><td>Parenchymal disruption of 25–75% of a hepatic lobe; active bleeding extending beyond the liver parenchyma into the peritoneum</td></tr><tr><td style="font-weight:bold">V</td><td>Parenchymal disruption &gt;75% of a hepatic lobe; juxtahepatic venous injury (retrohepatic vena cava, central major hepatic veins)</td></tr></table>
+<p style="font-size:13px">Vascular injury = pseudoaneurysm or AV fistula: focal vascular contrast that <b>decreases</b> in attenuation on delayed images. Active bleeding = focal or diffuse vascular contrast that <b>increases</b> in size or attenuation on the delayed phase. Grade by the highest finding on imaging, at operation or on pathology. Advance one grade for multiple injuries, up to grade III.</p>
+<a class="src" href="https://doi.org/10.1097/TA.0000000000002058" target="_blank">Source: Kozar et al., J Trauma Acute Care Surg 2018;85(6):1119–1122</a>
+<a class="src" href="https://www.aast.org/static/journal_pdf_1ea6c353-e5b1-40d7-85ab-2a7cb76e886a/1ea6c353-e5b1-40d7-85ab-2a7cb76e886a.pdf" target="_blank">Full text (AAST-hosted PDF)</a>
+<a class="src" href="https://www.aast.org/resources-detail/injury-scoring-scale" target="_blank">AAST Injury Scoring Scales</a>
+</section>
+<section class="card">
+<h2>Spleen Injury Scale (AAST 2018)</h2>
+<table><tr style="color:var(--mute)"><td>Grade</td><td>Imaging criteria (CT)</td></tr><tr><td style="font-weight:bold">I</td><td>Subcapsular hematoma &lt;10% surface area; parenchymal laceration &lt;1 cm depth; capsular tear</td></tr><tr><td style="font-weight:bold">II</td><td>Subcapsular hematoma 10–50% surface area; intraparenchymal hematoma &lt;5 cm; parenchymal laceration 1–3 cm</td></tr><tr><td style="font-weight:bold">III</td><td>Subcapsular hematoma &gt;50% surface area; ruptured subcapsular or intraparenchymal hematoma ≥5 cm; parenchymal laceration &gt;3 cm depth</td></tr><tr><td style="font-weight:bold">IV</td><td>Any injury with splenic vascular injury or active bleeding confined within the splenic capsule; laceration involving segmental or hilar vessels producing &gt;25% devascularization</td></tr><tr><td style="font-weight:bold">V</td><td>Any injury with splenic vascular injury and active bleeding extending beyond the spleen into the peritoneum; shattered spleen</td></tr></table>
+<p style="font-size:13px">Vascular injury = pseudoaneurysm or AV fistula: focal vascular contrast that <b>decreases</b> in attenuation on delayed images. Active bleeding = focal or diffuse vascular contrast that <b>increases</b> in size or attenuation on the delayed phase. Grade by the highest finding on imaging, at operation or on pathology. Advance one grade for multiple injuries, up to grade III.</p>
+<a class="src" href="https://doi.org/10.1097/TA.0000000000002058" target="_blank">Source: Kozar et al., J Trauma Acute Care Surg 2018;85(6):1119–1122</a>
+<a class="src" href="https://www.aast.org/static/journal_pdf_1ea6c353-e5b1-40d7-85ab-2a7cb76e886a/1ea6c353-e5b1-40d7-85ab-2a7cb76e886a.pdf" target="_blank">Full text (AAST-hosted PDF)</a>
+<a class="src" href="https://www.aast.org/resources-detail/injury-scoring-scale" target="_blank">AAST Injury Scoring Scales</a>
+</section>
+</div></section>
+<section class="panel" id="calc"><h2 class="sec">Calculators</h2><div class="cards">
+<section class="card">
+<h2 style="margin-top:0">Ellipsoid Volume</h2>
+<p style="font-size:13px;opacity:.8">V = L &times; W &times; H &times; &pi;/6 (&asymp; 0.52)</p>
+<input id="eL" type="number" step="any" placeholder="Length (cm)" oninput="ev()">
+<input id="eW" type="number" step="any" placeholder="Width (cm)" oninput="ev()">
+<input id="eH" type="number" step="any" placeholder="Height (cm)" oninput="ev()">
+<p id="eR" style="font-size:22px;font-weight:bold">&mdash;</p>
+<a class="src" href="https://radiopaedia.org/articles/ellipsoid-volume-formula" target="_blank">Source: ellipsoid volume formula (Radiopaedia)</a>
+</section>
+</div></section>
+</main>
+<script>function ev(){const l=+eL.value,w=+eW.value,h=+eH.value;eR.textContent=(l&&w&&h)?(l*w*h*Math.PI/6).toFixed(2)+' mL (cm\u00b3)':'\u2014'}</script>
+<script>
+function show(p){document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.p===p));
+document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('on',x.id===p));try{localStorage.tab=p}catch(e){}}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>show(t.dataset.p));
+const h=location.hash.slice(1);show(['res','charts','calc'].includes(h)?h:(localStorage.tab||'res'));
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+</script>
+</body></html>
