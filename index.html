@@ -118,15 +118,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 <section class="panel" id="calc"><h2 class="sec">Calculators</h2><div class="cards">
 <div class="tile"><a href="https://www.mesa-nhlbi.org/MESACHDRisk/MesaRiskScore/RiskScore.aspx" target="_blank"><b>MESA 10-Year CHD Risk</b><p>Official MESA risk score with CAC</p></a><a class="src" href="https://doi.org/10.1016/j.jacc.2015.08.035" target="_blank">Source: McClelland et al., J Am Coll Cardiol 2015</a></div>
 <div class="tile"><a href="https://www.mesa-nhlbi.org/Calcium/input.aspx" target="_blank"><b>MESA CAC Percentile</b><p>Score percentile by age, sex, ethnicity</p></a><a class="src" href="https://www.mesa-nhlbi.org/Calcium/input.aspx" target="_blank">Source: MESA (NHLBI)</a></div>
-<section class="card">
-<h2 style="margin-top:0">Ellipsoid Volume</h2>
+<details class="card"><summary class="chartbtn">Ellipsoid Volume</summary>
 <p style="font-size:13px;opacity:.8">V = L &times; W &times; H &times; &pi;/6 (&asymp; 0.52)</p>
 <input id="eL" type="number" step="any" placeholder="Length (cm)" oninput="ev()">
 <input id="eW" type="number" step="any" placeholder="Width (cm)" oninput="ev()">
 <input id="eH" type="number" step="any" placeholder="Height (cm)" oninput="ev()">
 <p id="eR" style="font-size:22px;font-weight:bold">&mdash;</p>
 <a class="src" href="https://radiopaedia.org/articles/ellipsoid-volume-formula" target="_blank">Source: ellipsoid volume formula (Radiopaedia)</a>
-</section>
+</details>
 </div></section>
 </main>
 <script>function ev(){const l=+eL.value,w=+eW.value,h=+eH.value;eR.textContent=(l&&w&&h)?(l*w*h*Math.PI/6).toFixed(2)+' mL (cm\u00b3)':'\u2014'}</script>
