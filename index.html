@@ -49,7 +49,7 @@ a.src:hover{color:#fff}
  .bar{justify-content:center}
  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;gap:0;background:#000;border-top:1px solid var(--line);
   padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
- .tab{flex:1;min-width:0;min-height:60px;border-radius:10px;border:0;background:transparent;font-size:15px}
+ .tab{flex:1;min-width:0;min-height:60px;border-radius:10px;border:0;background:transparent;font-size:14px;padding:0 4px}
  .tab[aria-selected=true]{background:var(--metal);color:#000}
  main{padding:16px} .grid,.cards{grid-template-columns:1fr}
 }
@@ -67,6 +67,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 <button class="tab" role="tab" aria-selected="true" data-p="res">Resources</button>
 <button class="tab" role="tab" aria-selected="false" data-p="charts">Charts</button>
 <button class="tab" role="tab" aria-selected="false" data-p="calc">Calculators</button>
+<button class="tab" role="tab" aria-selected="false" data-p="heart">Heart</button>
 </nav></div></header>
 <main>
 <input id="q" placeholder="Search all three (press Enter)…" onkeydown="if(event.key==='Enter'){const v=encodeURIComponent(this.value);open('https://radiopaedia.org/search?q='+v);open('https://my.statdx.com/search?q='+v);open('https://www.google.com/search?q=site:radiologyassistant.nl+'+v)}">
@@ -85,11 +86,6 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 <div class="tile"><a href="https://radiologyassistant.nl/head-neck/cervical-node-mapping/cervical-node-map" target="_blank"><b>Cervical Node Levels</b><p>Radiology Assistant illustrated neck node map (levels I–X)</p></a><a class="src" href="https://doi.org/10.1016/j.radonc.2013.10.010" target="_blank">Source: Grégoire et al., Radiother Oncol 2014 (consensus)</a><a class="src" href="https://doi.org/10.1001/archotol.125.4.388" target="_blank">Source: Som et al., Arch Otolaryngol HNS 1999 (imaging classification)</a></div>
 <div class="tile"><a href="https://radiologyassistant.nl/abdomen/liver/segmental-anatomy" target="_blank"><b>Liver Segments</b><p>Radiology Assistant illustrated Couinaud segmental anatomy</p></a><a class="src" href="https://radiologyassistant.nl/abdomen/liver/segmental-anatomy" target="_blank">Source: Radiology Assistant, Liver segmental anatomy (Couinaud classification)</a></div>
 </div><h2 class="sec" style="margin-top:28px">Quick reference</h2><div class="cards">
-<details class="card"><summary class="chartbtn">Interpretation of CAC Score Results</summary>
-<table><tr style="color:var(--mute)"><td>Visual score</td><td>Absolute CAC score (Agatston)</td><td>MESA percentile (sex, age, ethnicity)</td><td>Clinical interpretation</td></tr><tr><td style="font-weight:bold">None</td><td>0*</td><td>0</td><td>Very low risk of future coronary events</td></tr><tr><td style="font-weight:bold">Mild</td><td>1&ndash;100</td><td>&le;75</td><td>Low risk of future coronary events; low probability of myocardial ischemia</td></tr><tr><td style="font-weight:bold">Moderate</td><td>101&ndash;400</td><td>76&ndash;90</td><td>Increased risk of future coronary events; consider reclassifying the individual as being at high risk</td></tr><tr><td style="font-weight:bold">Severe</td><td>&gt;400</td><td>&gt;90</td><td>Increased probability of myocardial ischemia</td></tr></table>
-<p style="font-size:12px;color:var(--mute)">*CAC scores must be interpreted after the patient&rsquo;s clinical risk factors are incorporated. A score of 0 does not imply zero risk. Table 4, adapted and reprinted with permission from the source&rsquo;s reference 7.</p>
-<a class="src" href="https://pubs.rsna.org/doi/10.1148/rg.210122" target="_blank">Source: RadioGraphics, doi:10.1148/rg.210122 (Table 4)</a>
-</details>
 <details class="card"><summary class="chartbtn">Breast Density (ACR BI-RADS)</summary>
 <table style="width:100%;border-collapse:collapse;font-size:14px">
 <tr><td style="padding:6px;font-weight:bold">A</td><td>Almost entirely fatty</td></tr>
@@ -124,9 +120,6 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 </details>
 </div></section>
 <section class="panel" id="calc"><h2 class="sec">Calculators</h2><div class="cards">
-<div class="tile"><a href="https://www.mesa-nhlbi.org/Calcium/input.aspx" target="_blank"><b>MESA CAC Percentile</b><p>Score percentile by age, sex, ethnicity</p></a><a class="src" href="https://www.mesa-nhlbi.org/Calcium/input.aspx" target="_blank">Source: MESA (NHLBI)</a></div>
-<div class="tile"><a href="https://tools.acc.org/ascvd-risk-estimator-plus/" target="_blank"><b>10-Year ASCVD Risk</b><p>ACC ASCVD Risk Estimator Plus (Pooled Cohort Equations)</p></a><a class="src" href="https://doi.org/10.1161/01.cir.0000437741.48606.98" target="_blank">Source: Goff et al., 2013 ACC/AHA Guideline on Assessment of CV Risk, Circulation</a></div>
-<div class="tile"><a href="https://www.mesa-nhlbi.org/MESACHDRisk/MesaRiskScore/RiskScore.aspx" target="_blank"><b>MESA 10-Year CHD Risk</b><p>Official MESA risk score with CAC</p></a><a class="src" href="https://doi.org/10.1016/j.jacc.2015.08.035" target="_blank">Source: McClelland et al., J Am Coll Cardiol 2015</a></div>
 <details class="card"><summary class="chartbtn">Ellipsoid Volume</summary>
 <p style="font-size:13px;opacity:.8">V = L &times; W &times; H &times; &pi;/6 (&asymp; 0.52)</p>
 <input id="eL" type="number" step="any" placeholder="Length (cm)" oninput="ev()">
@@ -136,13 +129,23 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 <a class="src" href="https://radiopaedia.org/articles/ellipsoid-volume-formula" target="_blank">Source: ellipsoid volume formula (Radiopaedia)</a>
 </details>
 </div></section>
+<section class="panel" id="heart"><h2 class="sec">Heart &amp; coronary risk</h2><div class="cards">
+<details class="card"><summary class="chartbtn">Interpretation of CAC Score Results</summary>
+<table><tr style="color:var(--mute)"><td>Visual score</td><td>Absolute CAC score (Agatston)</td><td>MESA percentile (sex, age, ethnicity)</td><td>Clinical interpretation</td></tr><tr><td style="font-weight:bold">None</td><td>0*</td><td>0</td><td>Very low risk of future coronary events</td></tr><tr><td style="font-weight:bold">Mild</td><td>1&ndash;100</td><td>&le;75</td><td>Low risk of future coronary events; low probability of myocardial ischemia</td></tr><tr><td style="font-weight:bold">Moderate</td><td>101&ndash;400</td><td>76&ndash;90</td><td>Increased risk of future coronary events; consider reclassifying the individual as being at high risk</td></tr><tr><td style="font-weight:bold">Severe</td><td>&gt;400</td><td>&gt;90</td><td>Increased probability of myocardial ischemia</td></tr></table>
+<p style="font-size:12px;color:var(--mute)">*CAC scores must be interpreted after the patient&rsquo;s clinical risk factors are incorporated. A score of 0 does not imply zero risk. Table 4, adapted and reprinted with permission from the source&rsquo;s reference 7.</p>
+<a class="src" href="https://pubs.rsna.org/doi/10.1148/rg.210122" target="_blank">Source: RadioGraphics, doi:10.1148/rg.210122 (Table 4)</a>
+</details>
+<div class="tile"><a href="https://www.mesa-nhlbi.org/Calcium/input.aspx" target="_blank"><b>MESA CAC Percentile</b><p>Score percentile by age, sex, ethnicity</p></a><a class="src" href="https://www.mesa-nhlbi.org/Calcium/input.aspx" target="_blank">Source: MESA (NHLBI)</a></div>
+<div class="tile"><a href="https://tools.acc.org/ascvd-risk-estimator-plus/" target="_blank"><b>10-Year ASCVD Risk</b><p>ACC ASCVD Risk Estimator Plus (Pooled Cohort Equations)</p></a><a class="src" href="https://doi.org/10.1161/01.cir.0000437741.48606.98" target="_blank">Source: Goff et al., 2013 ACC/AHA Guideline on Assessment of CV Risk, Circulation</a></div>
+<div class="tile"><a href="https://www.mesa-nhlbi.org/MESACHDRisk/MesaRiskScore/RiskScore.aspx" target="_blank"><b>MESA 10-Year CHD Risk</b><p>Official MESA risk score with CAC</p></a><a class="src" href="https://doi.org/10.1016/j.jacc.2015.08.035" target="_blank">Source: McClelland et al., J Am Coll Cardiol 2015</a></div>
+</div></section>
 </main>
 <script>function ev(){const l=+eL.value,w=+eW.value,h=+eH.value;eR.textContent=(l&&w&&h)?(l*w*h*Math.PI/6).toFixed(2)+' mL (cm\u00b3)':'\u2014'}</script>
 <script>
 function show(p){document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.p===p));
 document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('on',x.id===p));try{localStorage.tab=p}catch(e){}}
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>show(t.dataset.p));
-const h=location.hash.slice(1);show(['res','charts','calc'].includes(h)?h:(localStorage.tab||'res'));
+const h=location.hash.slice(1);show(['res','charts','calc','heart'].includes(h)?h:(localStorage.tab||'res'));
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
 </script>
 </body></html>
