@@ -43,7 +43,7 @@ a.src:hover{color:#fff}
 .card table{width:100%;border-collapse:collapse;font-size:15px}
 .card td{padding:10px 6px!important;border-bottom:1px solid var(--line)}
 .card p{color:var(--silver)}
-#eR{color:#fff}
+#eR,#awR{color:#fff}
 @media (max-width:760px){
  header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#07080a}
  .bar{justify-content:center}
@@ -191,6 +191,17 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 <p id="eR" style="font-size:22px;font-weight:bold">&mdash;</p>
 <a class="src" href="https://radiopaedia.org/articles/ellipsoid-volume-formula" target="_blank">Source: ellipsoid volume formula (Radiopaedia)</a>
 </details>
+<details class="card"><summary class="chartbtn">Adrenal Washout (Absolute &amp; Relative)</summary>
+<p style="font-size:13px;opacity:.8">APW = (Enhanced &minus; Delayed) / (Enhanced &minus; Unenhanced) &times; 100<br>RPW = (Enhanced &minus; Delayed) / Enhanced &times; 100<br>ACR protocol: unenhanced, 60&ndash;90 s enhanced, 15 min delayed.</p>
+<input id="awU" type="number" step="any" placeholder="Unenhanced (HU)" oninput="aw()">
+<input id="awE" type="number" step="any" placeholder="Enhanced, portal venous ~60&ndash;75 s (HU)" oninput="aw()">
+<input id="awD" type="number" step="any" placeholder="Delayed, 15 min (HU)" oninput="aw()">
+<p id="awR" style="font-size:22px;font-weight:bold">&mdash;</p>
+<p id="awI" style="font-size:13px;opacity:.9"></p>
+<p style="font-size:13px;opacity:.8">APW &ge;60% and RPW &ge;40% are consistent with adenoma. Unenhanced &le;10 HU is consistent with a lipid-rich adenoma (washout not required). Hypervascular metastases (e.g. RCC, HCC) and pheochromocytoma can mimic adenoma washout.</p>
+<a class="src" href="https://doi.org/10.1016/j.jacr.2017.05.001" target="_blank">Source: Mayo-Smith et al., ACR incidental adrenal mass white paper, JACR 2017</a>
+<a class="src" href="https://radiopaedia.org/articles/adrenal-washout" target="_blank">Source: Adrenal washout (Radiopaedia)</a>
+</details>
 </div></section>
 <section class="panel" id="heart"><h2 class="sec">Heart &amp; coronary risk</h2><div class="cards">
 <details class="card"><summary class="chartbtn">Interpretation of CAC Score Results</summary>
@@ -242,7 +253,34 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 <div class="tile"><a href="https://www.mesa-nhlbi.org/MESACHDRisk/MesaRiskScore/RiskScore.aspx" target="_blank"><b>MESA 10-Year CHD Risk</b><p>Official MESA risk score with CAC</p></a><a class="src" href="https://doi.org/10.1016/j.jacc.2015.08.035" target="_blank">Source: McClelland et al., J Am Coll Cardiol 2015</a></div>
 </div></section>
 </main>
-<script>function ev(){const l=+eL.value,w=+eW.value,h=+eH.value;eR.textContent=(l&&w&&h)?(l*w*h*Math.PI/6).toFixed(2)+' mL (cm\u00b3)':'\u2014'}</script>
+<script>function ev(){const l=+eL.value,w=+eW.value,h=+eH.value;eR.textContent=(l&&w&&h)?(l*w*h*Math.PI/6).toFixed(2)+' mL (cm\u00b3)':'\u2014'};
+function aw(){
+  const rawU=awU.value.trim(), rawE=awE.value.trim(), rawD=awD.value.trim();
+  const u=rawU===''?NaN:+rawU, e=rawE===''?NaN:+rawE, d=rawD===''?NaN:+rawD;
+  const okU=rawU!==''&&Number.isFinite(u), okE=rawE!==''&&Number.isFinite(e), okD=rawD!==''&&Number.isFinite(d);
+  const parts=[], notes=[];
+  if(okE&&okD){
+    if(!okU){parts.push('APW: \u2014 (unenhanced HU needed)');}
+    else if(e===u){parts.push('APW: \u2014 (enhanced equals unenhanced)');}
+    else{
+      const apw=(e-d)/(e-u)*100;
+      parts.push('APW: '+apw.toFixed(1)+'%');
+      if(apw>=60) notes.push('APW \u226560% is consistent with adenoma.');
+    }
+    if(e===0){parts.push('RPW: \u2014 (cannot divide by enhanced = 0 HU)');}
+    else{
+      const rpw=(e-d)/e*100;
+      parts.push('RPW: '+rpw.toFixed(1)+'%');
+      if(rpw>=40) notes.push('RPW \u226540% is consistent with adenoma.');
+    }
+  }else{
+    parts.push('\u2014');
+  }
+  if(okU&&u<=10) notes.unshift('Unenhanced \u226410 HU is consistent with a lipid-rich adenoma; washout is not required for this diagnosis.');
+  awR.textContent=parts.join('  \u00b7  ');
+  awI.textContent=notes.join(' ');
+}
+</script>
 <script>
 function show(p){document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.p===p));
 document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('on',x.id===p));try{localStorage.tab=p}catch(e){}}
